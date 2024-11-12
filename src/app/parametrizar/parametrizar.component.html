@@ -1,0 +1,27 @@
+<h1>Parametrizar</h1>
+<table>
+  <thead>
+    <tr>
+      <th>TIPO</th>
+      <th>PARÁMETROS</th>
+      <th>EJEMPLO NOMBRE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of items">
+      <td>{{ item.tipo }}</td>
+      <td>
+        <label *ngFor="let param of parametros">
+          <input
+            type="checkbox"
+            [value]="param"
+            [(ngModel)]="item.parametrosSeleccionados[param]"
+            (change)="updateNombreEjemplo(item)"
+          />
+          {{ param }}
+        </label>
+      </td>
+      <td>{{ item.nombreEjemplo }}</td>
+    </tr>
+  </tbody>
+</table>

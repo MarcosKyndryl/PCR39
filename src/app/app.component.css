@@ -1,0 +1,20 @@
+/* El contenedor utiliza flexbox para organizar la navegación a la izquierda y el contenido a la derecha */
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Estilo para el componente de navegación (app-navigation) */
+app-navigation {
+  width: 150px;  /* Ancho fijo para la navegación */
+  background-color: #f4f4f4;  /* Color de fondo */
+  border-right: 1px solid #ccc;  /* Separador entre la navegación y el contenido */
+  padding: 20px;
+  flex-shrink: 0;  /* Evita que la navegación se encoja */
+}
+
+/* El contenido se posiciona a la derecha de la barra de navegación */
+.content {
+  flex-grow: 1;  /* Ocupa todo el espacio restante */
+  padding: 20px;  /* Espacio interno */
+}

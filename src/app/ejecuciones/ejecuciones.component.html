@@ -1,0 +1,33 @@
+<h1>Ejecuciones</h1>
+<div>
+  <label for="tipo">TIPO:</label>
+  <select id="tipo" [(ngModel)]="selectedTipo">
+    <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+  </select>
+</div>
+<div>
+  <label for="desde">DESDE:</label>
+  <input id="desde" type="date" [(ngModel)]="desde">
+</div>
+<div>
+  <label for="hasta">HASTA:</label>
+  <input id="hasta" type="date" [(ngModel)]="hasta">
+</div>
+<button (click)="buscarEjecuciones()">Buscar</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>FECHA</th>
+      <th>HORA EJECUCIÓN</th>
+      <th>ARCHIVO LOG</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ejecucion of ejecuciones">
+      <td>{{ ejecucion.fecha }}</td>
+      <td>{{ ejecucion.hora }}</td>
+      <td>{{ ejecucion.log }}</td>
+    </tr>
+  </tbody>
+</table>
