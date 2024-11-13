@@ -1,38 +1,70 @@
 /* Centra el login en la pantalla */
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;  /* 100% de la altura de la ventana */
-  }
-  
-  .login-form {
-    width: 300px;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .login-form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .login-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .login-form button:hover {
-    background-color: #0056b3;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 100% de la altura de la ventana */
+  background-color: #e9ecef; /* Fondo suave para toda la pantalla */
+}
+
+.login-wrapper {
+  text-align: center;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 320px; /* Limita el ancho del formulario */
+  padding: 20px 25px;
+  border-radius: 10px;
+  background-color: #ffffff; /* Fondo blanco para el formulario */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra para profundidad */
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #f8f9fa; /* Fondo claro para el input */
+  transition: border-color 0.3s;
+}
+
+.login-form input:focus {
+  border-color: #007bff; /* Color de borde al enfocar */
+  outline: none;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.login-form button:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: #dc3545; /* Rojo suave para mensaje de error */
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+}

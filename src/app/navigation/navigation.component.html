@@ -1,11 +1,13 @@
 <nav class="vertical-nav">
-    <ul>
-      <li>
-        <a routerLink="/parametrizar" routerLinkActive="active">Parametrizar</a>
-      </li>
-      <li>
-        <a routerLink="/ejecuciones" routerLinkActive="active">Ejecuciones</a>
-      </li>
-    </ul>
-  </nav>
-  
+  <ul>
+    <li>
+      <a routerLink="/parametrizar" routerLinkActive="active">Parametrizar</a>
+    </li>
+    <li>
+      <a routerLink="/ejecuciones" routerLinkActive="active">Ejecuciones</a>
+    </li>
+    <li>
+      <button (click)="logout()" class="logout-button">Cerrar sesión</button>
+    </li>
+  </ul>
+</nav>

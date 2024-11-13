@@ -32,3 +32,18 @@
     color: white;
   }
   
+  .vertical-nav ul li .logout-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    text-align: left;
+    background-color: #dc3545; /* Rojo para indicar la acción de cierre de sesión */
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .vertical-nav ul li .logout-button:hover {
+    background-color: #c82333; /* Color más oscuro al pasar el mouse */
+  }

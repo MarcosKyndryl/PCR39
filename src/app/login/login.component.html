@@ -1,11 +1,18 @@
 <div class="login-container">
-  <form class="login-form" (ngSubmit)="onSubmit()">
-    <label for="usuario">USUARIO</label>
-    <input id="usuario" [(ngModel)]="username" name="username" placeholder="Usuario" required>
+  <div class="login-wrapper">
+    <form class="login-form" (ngSubmit)="onSubmit()">
+      <label for="usuario">USUARIO</label>
+      <input id="usuario" [(ngModel)]="username" name="username" placeholder="Usuario" required>
 
-    <label for="password">CONTRASEÑA</label>
-    <input id="password" type="password" [(ngModel)]="password" name="password" placeholder="Contraseña" required>
+      <label for="password">CONTRASEÑA</label>
+      <input id="password" type="password" [(ngModel)]="password" name="password" placeholder="Contraseña" required>
 
-    <button type="submit">Iniciar Sesión</button>
-  </form>
+      <button type="submit">Iniciar Sesión</button>
+    </form>
+
+    <!-- Mostrar mensaje de error debajo del formulario -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </div>
 </div>
