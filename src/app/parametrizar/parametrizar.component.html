@@ -25,3 +25,9 @@
     </tr>
   </tbody>
 </table>
+
+<!-- Botón para confirmar cambios -->
+<button (click)="confirmarCambios()" [disabled]="!cambiosRealizados">Guardar Cambios</button>
+
+<!-- Mensaje -->
+<div *ngIf="mensaje" class="mensaje">{{ mensaje }}</div>
