@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from '../environments/environment';
 @Injectable({
-  providedIn: 'root'  // Esto asegura que el servicio sea un singleton en toda la aplicación
+  providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://us-central1-ci-xhispdf-dev.cloudfunctions.net/verify_login';  // Reemplaza con la URL de tu API
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 

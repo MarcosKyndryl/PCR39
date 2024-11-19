@@ -1,12 +1,11 @@
-runtime: python39
+runtime: nodejs18  # Asegúrate de usar una versión compatible de Node.js
 
 handlers:
-  # Maneja la URL raíz y sirve el archivo index.html como página principal
-  - url: /
-    static_files: dist/pcr/index.html
-    upload: dist/pcr/index.html
 
-  # Maneja todos los archivos estáticos desde el directorio dist/pcr
-  - url: /(.*)
-    static_files: dist/pcr/\1
-    upload: dist/pcr/(.*)
+- url: /
+  static_files: dist/pcr/browser/index.html
+  upload: dist/pcr/browser/index.html
+
+- url: /(.*)
+  static_files: dist/pcr/browser/\1
+  upload: dist/pcr/browser/.*
