@@ -1,19 +1,11 @@
-runtime: python39
-api_version: 1
-threadsafe: true
+runtime: nodejs18  # Asegúrate de usar una versión compatible de Node.js
+
 handlers:
-  - url: /
-    static_files: dist/pcr/index.html
-    upload: dist/pcr/index.html
-  - url: /
-    static_dir: dist/pcr
-skip_files:
-  - e2e/
-  - node_modules/
-  - src/
-  - coverage
-  - ^(.*/)?\..*$
-  - ^(.*/)?.*\.json$
-  - ^(.*/)?.*\.md$
-  - ^(.*/)?.*\.yaml$
-  - ^LICENSE
+
+- url: /
+  static_files: dist/pcr/browser/index.html
+  upload: dist/pcr/browser/index.html
+
+- url: /(.*)
+  static_files: dist/pcr/browser/\1
+  upload: dist/pcr/browser/.*
