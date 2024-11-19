@@ -1,4 +1,4 @@
-runtime: nodejs18  # Asegúrate de usar una versión compatible de Node.js
+runtime: nodejs18 
 
 handlers:
 
