@@ -1,52 +1,40 @@
 <h1>Ejecuciones</h1>
-<div>
-  <label for="tipo">TIPO:</label>
-  <select id="tipo" [(ngModel)]="selectedTipo">
-    <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
-  </select>
-</div>
-<div>
-  <label for="desde">DESDE:</label>
-  <input id="desde" type="date" [(ngModel)]="desde">
-</div>
-<div>
-  <label for="hasta">HASTA:</label>
-  <input id="hasta" type="date" [(ngModel)]="hasta">
-</div>
-<button (click)="buscarEjecuciones()">Buscar</button>
-<button (click)="limpiarFiltros()">Limpiar Campos</button>
 
-<table>
+<!-- Filtros -->
+<div class="filtros">
+  <div>
+    <label for="tipo">TIPO:</label>
+    <select id="tipo" [(ngModel)]="selectedTipo">
+      <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+    </select>
+  </div>
+  <div>
+    <label for="desde">DESDE:</label>
+    <input id="desde" type="date" [(ngModel)]="desde">
+  </div>
+  <div>
+    <label for="hasta">HASTA:</label>
+    <input id="hasta" type="date" [(ngModel)]="hasta">
+  </div>
+</div>
+<div class="botones">
+  <button (click)="aplicarFiltros()">Buscar</button>
+  <button (click)="limpiarFiltros()">Limpiar Campos</button>
+  <button (click)="refrescarTabla()">Refrescar Tabla</button>
+</div>
+
+<!-- Tabla -->
+<table *ngIf="ejecucionesPaginadas.length > 0" class="tabla">
   <thead>
     <tr>
-      <th (click)="ordenarColumna('tipo')">
-        TIPO
-        <span *ngIf="ordenColumna === 'tipo'">
-          {{ ordenAscendente ? '⬆️' : '⬇️' }}
-        </span>
-      </th>
-      <th (click)="ordenarColumna('fecha')">
-        FECHA
-        <span *ngIf="ordenColumna === 'fecha'">
-          {{ ordenAscendente ? '⬆️' : '⬇️' }}
-        </span>
-      </th>
-      <th (click)="ordenarColumna('hora')">
-        HORA EJECUCIÓN
-        <span *ngIf="ordenColumna === 'hora'">
-          {{ ordenAscendente ? '⬆️' : '⬇️' }}
-        </span>
-      </th>
-      <th (click)="ordenarColumna('log')">
-        ARCHIVO LOG
-        <span *ngIf="ordenColumna === 'log'">
-          {{ ordenAscendente ? '⬆️' : '⬇️' }}
-        </span>
-      </th>
+      <th>TIPO</th>
+      <th>FECHA</th>
+      <th>HORA</th>
+      <th>ARCHIVO LOG</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let ejecucion of ejecucionesFiltradas">
+    <tr *ngFor="let ejecucion of ejecucionesPaginadas">
       <td>{{ ejecucion.tipo }}</td>
       <td>{{ ejecucion.fecha }}</td>
       <td>{{ ejecucion.hora }}</td>
@@ -54,3 +42,15 @@
     </tr>
   </tbody>
 </table>
+
+<!-- Mensaje para cuando no hay resultados -->
+<div *ngIf="ejecucionesFiltradas.length === 0" class="sin-resultados">
+  <p>No se encontraron resultados para los filtros aplicados.</p>
+</div>
+
+<!-- Controles de paginación -->
+<div *ngIf="totalPaginas > 1" class="paginacion">
+  <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">Anterior</button>
+  <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
+  <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+</div>

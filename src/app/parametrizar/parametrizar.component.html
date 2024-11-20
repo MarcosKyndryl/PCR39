@@ -11,7 +11,7 @@
     <tr *ngFor="let item of items">
       <td>{{ item.tipo }}</td>
       <td>
-        <label *ngFor="let param of parametros">
+        <label *ngFor="let param of item.parametrosDisponibles">
           <input
             type="checkbox"
             [value]="param"
