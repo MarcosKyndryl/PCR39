@@ -20,7 +20,7 @@ export class EjecucionesComponent implements OnInit {
   ejecucionesFiltradas: any[] = []; // Datos filtrados
   ejecucionesPaginadas: any[] = []; // Datos visibles en la página actual
 
-  // Paginación
+  // Paginación :D
   paginaActual = 1;
   itemsPorPagina = 10;
   totalPaginas = 0;

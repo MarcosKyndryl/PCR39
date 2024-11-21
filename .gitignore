@@ -1,11 +1,12 @@
 # Ignorar todo por defecto
 *
 
-# Incluir solo el directorio dist/pcr y archivos importantes
-!dist/
-!dist/pcr/**
-!dist/pcr/browser/**
-!dist/pcr/server/**
+# Incluir solo archivos y directorios específicos
+!src/
+!src/**
+
+# Ignorar la carpeta dist
+dist/
 
 # Ignorar node_modules y otros directorios innecesarios
 node_modules/
