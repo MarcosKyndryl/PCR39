@@ -11,7 +11,15 @@ import { ReglasService } from '../services/reglas.service'; // Servicio para lla
   imports: [FormsModule, CommonModule], // Agrega FormsModule aquí
 })
 export class ParametrizarComponent implements OnInit {
-  parametros = ['documento', 'encuentro', 'peticion', 'garante', 'fecha-Solicitud'];
+  // Definir el mapeo de tipos a parámetros permitidos
+  parametrosPermitidos: Record<string, string[]> = {
+    INF_IMA: ['encuentro', 'peticion', 'garante', 'fechasolicitud'],
+    REC_MED: ['encuentro', 'garante', 'fecharegistro', 'formularioPK'],
+    ORD_LAB: ['encuentro', 'peticion', 'garante', 'fechasolicitud'],
+    ORD_IMA: ['encuentro', 'peticion', 'garante', 'fechasolicitud'],
+    DES_MED: ['encuentro', 'garante', 'fecharegistro', 'formularioPK'],
+  };
+
   items: any[] = [];
   mensaje: string = '';
   cambiosRealizados: boolean = false;
@@ -28,6 +36,7 @@ export class ParametrizarComponent implements OnInit {
         if (response.success) {
           this.items = response.data.map((item: any) => ({
             tipo: item.tipo,
+            parametrosDisponibles: this.parametrosPermitidos[item.tipo] || [],
             parametrosSeleccionados: this.descomponerParametros(item.regla_nombre),
             nombreEjemplo: item.ejemplo,
             originalParametrosSeleccionados: this.descomponerParametros(item.regla_nombre),
@@ -44,15 +53,15 @@ export class ParametrizarComponent implements OnInit {
   descomponerParametros(reglaNombre: string): Record<string, boolean> {
     const seleccionados = reglaNombre.split('_');
     const parametrosSeleccionados: Record<string, boolean> = {};
-    this.parametros.forEach((param) => {
-      parametrosSeleccionados[param] = seleccionados.includes(param);
+    seleccionados.forEach((param) => {
+      parametrosSeleccionados[param] = true;
     });
     return parametrosSeleccionados;
   }
 
   updateNombreEjemplo(item: any) {
-    const paramsSeleccionados = this.parametros
-      .filter((param) => item.parametrosSeleccionados[param])
+    const paramsSeleccionados = item.parametrosDisponibles
+      .filter((param: string) => item.parametrosSeleccionados[param])
       .join('_');
     item.nombreEjemplo = `${item.tipo}_${paramsSeleccionados}.pdf`;
 
