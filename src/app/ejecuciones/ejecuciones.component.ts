@@ -11,7 +11,7 @@ import { EjecucionesService } from './ejecuciones.service';
   imports: [FormsModule, CommonModule],
 })
 export class EjecucionesComponent implements OnInit {
-  tipos = ['INFO_LAB', 'INFO_IMA', 'ORD_LAB', 'ORD_IMA', 'REC_MED', 'DES_MED'];
+  tipos = ['Todos','INFO_LAB', 'INFO_IMA', 'ORD_LAB', 'ORD_IMA', 'REC_MED', 'DES_MED'];
   selectedTipo = '';
   desde: string = '';
   hasta: string = '';
