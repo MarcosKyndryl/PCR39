@@ -4,21 +4,20 @@
 <div class="filtros">
   <div>
     <label for="tipo">TIPO:</label>
-    <select id="tipo" [(ngModel)]="selectedTipo">
+    <select id="tipo" [(ngModel)]="selectedTipo" (ngModelChange)="aplicarFiltros()">
       <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
     </select>
   </div>
   <div>
     <label for="desde">DESDE:</label>
-    <input id="desde" type="date" [(ngModel)]="desde">
+    <input id="desde" type="date" [(ngModel)]="desde" (ngModelChange)="aplicarFiltros()">
   </div>
   <div>
     <label for="hasta">HASTA:</label>
-    <input id="hasta" type="date" [(ngModel)]="hasta">
+    <input id="hasta" type="date" [(ngModel)]="hasta" (ngModelChange)="aplicarFiltros()">
   </div>
 </div>
 <div class="botones">
-  <button (click)="aplicarFiltros()">Buscar</button>
   <button (click)="limpiarFiltros()">Limpiar Campos</button>
   <button (click)="refrescarTabla()">Refrescar Tabla</button>
 </div>

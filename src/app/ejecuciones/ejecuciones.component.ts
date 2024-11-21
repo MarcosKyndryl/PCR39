@@ -11,8 +11,8 @@ import { EjecucionesService } from './ejecuciones.service';
   imports: [FormsModule, CommonModule],
 })
 export class EjecucionesComponent implements OnInit {
-  tipos = ['Todos','INFO_LAB', 'INFO_IMA', 'ORD_LAB', 'ORD_IMA', 'REC_MED', 'DES_MED'];
-  selectedTipo = '';
+  tipos = ['Todos', 'INFO_LAB', 'INFO_IMA', 'ORD_LAB', 'ORD_IMA', 'REC_MED', 'DES_MED'];
+  selectedTipo = 'Todos'; // Establece "Todos" como valor predeterminado
   desde: string = '';
   hasta: string = '';
 
@@ -20,7 +20,7 @@ export class EjecucionesComponent implements OnInit {
   ejecucionesFiltradas: any[] = []; // Datos filtrados
   ejecucionesPaginadas: any[] = []; // Datos visibles en la página actual
 
-  // Paginación :D
+  // Paginación
   paginaActual = 1;
   itemsPorPagina = 10;
   totalPaginas = 0;
@@ -53,9 +53,10 @@ export class EjecucionesComponent implements OnInit {
 
   aplicarFiltros() {
     this.ejecucionesFiltradas = this.ejecuciones.filter((ejec) => {
-      const cumpleTipo = this.selectedTipo ? ejec.tipo === this.selectedTipo : true;
-      const cumpleDesde = this.desde ? new Date(ejec.fecha) >= new Date(this.desde) : true;
-      const cumpleHasta = this.hasta ? new Date(ejec.fecha) <= new Date(this.hasta) : true;
+      const ejecFecha = this.parseFecha(ejec.fecha); // Convertimos la fecha del dato al formato Date
+      const cumpleTipo = this.selectedTipo && this.selectedTipo !== 'Todos' ? ejec.tipo === this.selectedTipo : true;
+      const cumpleDesde = this.desde ? ejecFecha >= new Date(this.desde) : true; // Convertimos `desde` al formato Date
+      const cumpleHasta = this.hasta ? ejecFecha <= this.getFechaFinDia(this.hasta) : true; // Incluye el día completo
       return cumpleTipo && cumpleDesde && cumpleHasta;
     });
     this.paginaActual = 1; // Reinicia la paginación
@@ -63,7 +64,7 @@ export class EjecucionesComponent implements OnInit {
   }
 
   limpiarFiltros() {
-    this.selectedTipo = '';
+    this.selectedTipo = 'Todos'; // Restablece "Todos" como valor predeterminado
     this.desde = '';
     this.hasta = '';
     this.aplicarFiltros(); // Restablece la lista filtrada a la completa
@@ -81,5 +82,17 @@ export class EjecucionesComponent implements OnInit {
       this.paginaActual = nuevaPagina;
       this.actualizarPaginacion();
     }
+  }
+
+  // Función para convertir fechas en formato dd/MM/yyyy a Date
+  private parseFecha(fecha: string): Date {
+    const [day, month, year] = fecha.split('/').map(Number);
+    return new Date(year, month - 1, day); // En JavaScript los meses comienzan desde 0
+  }
+
+  // Función para obtener el final del día (23:59:59) para una fecha específica
+  private getFechaFinDia(fecha: string): Date {
+    const [year, month, day] = fecha.split('-').map(Number); // Formato YYYY-MM-DD del input date
+    return new Date(year, month - 1, day, 23, 59, 59); // Último segundo del día
   }
 }
