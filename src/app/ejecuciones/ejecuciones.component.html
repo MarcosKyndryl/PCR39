@@ -1,39 +1,38 @@
 <h1>Ejecuciones</h1>
 
-<!-- Filtros -->
 <div class="filtros">
   <div>
-    <label for="tipo">TIPO:</label>
-    <select id="tipo" [(ngModel)]="selectedTipo" (ngModelChange)="aplicarFiltros()">
+    <label for="tipo">Tipo:</label>
+    <select id="tipo" [(ngModel)]="selectedTipo" (ngModelChange)="actualizarTabla()">
       <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
     </select>
   </div>
   <div>
-    <label for="desde">DESDE:</label>
-    <input id="desde" type="date" [(ngModel)]="desde" (ngModelChange)="aplicarFiltros()">
+    <label for="desde">Desde:</label>
+    <input id="desde" type="date" [(ngModel)]="desde" (ngModelChange)="actualizarTabla()">
   </div>
   <div>
-    <label for="hasta">HASTA:</label>
-    <input id="hasta" type="date" [(ngModel)]="hasta" (ngModelChange)="aplicarFiltros()">
+    <label for="hasta">Hasta:</label>
+    <input id="hasta" type="date" [(ngModel)]="hasta" (ngModelChange)="actualizarTabla()">
   </div>
-</div>
-<div class="botones">
-  <button (click)="limpiarFiltros()">Limpiar Campos</button>
-  <button (click)="refrescarTabla()">Refrescar Tabla</button>
+  <button (click)="limpiarFiltros()">Limpiar Filtros</button>
 </div>
 
-<!-- Tabla -->
-<table *ngIf="ejecucionesPaginadas.length > 0" class="tabla">
+<div *ngIf="cargando" class="spinner">
+  <p>Cargando...</p>
+</div>
+
+<table *ngIf="ejecuciones.length > 0 && !cargando">
   <thead>
     <tr>
-      <th>TIPO</th>
-      <th>FECHA</th>
-      <th>HORA</th>
-      <th>ARCHIVO LOG</th>
+      <th>Tipo</th>
+      <th>Fecha</th>
+      <th>Hora</th>
+      <th>Archivo Log</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let ejecucion of ejecucionesPaginadas">
+    <tr *ngFor="let ejecucion of ejecuciones">
       <td>{{ ejecucion.tipo }}</td>
       <td>{{ ejecucion.fecha }}</td>
       <td>{{ ejecucion.hora }}</td>
@@ -42,14 +41,11 @@
   </tbody>
 </table>
 
-<!-- Mensaje para cuando no hay resultados -->
-<div *ngIf="ejecucionesFiltradas.length === 0" class="sin-resultados">
-  <p>No se encontraron resultados para los filtros aplicados.</p>
+<div *ngIf="ejecuciones.length === 0 && !cargando">
+  <p>No se encontraron resultados.</p>
 </div>
 
-<!-- Controles de paginación -->
-<div *ngIf="totalPaginas > 1" class="paginacion">
+<div *ngIf="totalPaginas > 1 && !cargando">
   <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">Anterior</button>
   <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
-  <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">Siguiente</button>
-</div>
+  <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">Siguie

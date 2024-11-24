@@ -95,7 +95,7 @@ input[type="date"]:hover, input[type="text"]:hover, select:hover {
   border-color: #4CAF50;
 }
 
-/* Estilos de las flechas para ordenar */
+/* Estilos de las flechas para ordenar (obsoletoo)*/
 th span {
   display: inline-block;
   vertical-align: middle;
