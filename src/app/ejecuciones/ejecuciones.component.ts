@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms'; // Importar FormsModule para [(ngModel)]
-import { CommonModule } from '@angular/common'; // Para funcionalidades básicas como *ngFor y *ngIf
+import { FormsModule } from '@angular/forms'; // Importación correcta de FormsModule
+import { CommonModule } from '@angular/common'; // Importación correcta de CommonModule
 
 @Component({
   selector: 'app-ejecuciones',
-  standalone: true, // Indicador de componente standalone
+  standalone: true,
   templateUrl: './ejecuciones.component.html',
   styleUrls: ['./ejecuciones.component.css'],
-  imports: [FormsModule, CommonModule] 
+  imports: [FormsModule, CommonModule], // Asegúrate de incluir los módulos aquí
 })
 export class EjecucionesComponent {
   tipos = ['Todos', 'INF_LAB', 'INF_IMA', 'ORD_LAB', 'ORD_IMA', 'REC_MED', 'DES_MED'];
@@ -38,7 +38,7 @@ export class EjecucionesComponent {
       desde: this.desde || null,
       hasta: this.hasta || null,
       pagina: this.paginaActual,
-      itemsPorPagina: this.itemsPorPagina
+      itemsPorPagina: this.itemsPorPagina,
     };
 
     this.http.post('https://us-central1-ci-xhispdf-dev.cloudfunctions.net/ejecuciones2', filtros).subscribe({
@@ -56,8 +56,16 @@ export class EjecucionesComponent {
       },
       complete: () => {
         this.cargando = false;
-      }
+      },
     });
+  }
+
+  /**
+   * Reinicia la tabla cuando cambia un filtro.
+   */
+  actualizarFiltros() {
+    this.paginaActual = 1; // Reinicia a la primera página
+    this.actualizarTabla(); // Recarga los datos
   }
 
   cambiarPagina(nuevaPagina: number) {
@@ -71,7 +79,7 @@ export class EjecucionesComponent {
     this.selectedTipo = 'Todos';
     this.desde = '';
     this.hasta = '';
-    this.paginaActual = 1;
+    this.paginaActual = 1; // Reinicia a la primera página
     this.actualizarTabla();
   }
 }

@@ -1,33 +1,37 @@
 <h1>Parametrizar</h1>
-<table>
-  <thead>
-    <tr>
-      <th>TIPO</th>
-      <th>PARÁMETROS</th>
-      <th>EJEMPLO NOMBRE</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of items">
-      <td>{{ item.tipo }}</td>
-      <td>
-        <label *ngFor="let param of item.parametrosDisponibles">
-          <input
-            type="checkbox"
-            [value]="param"
-            [(ngModel)]="item.parametrosSeleccionados[param]"
-            (change)="updateNombreEjemplo(item)"
-          />
-          {{ param }}
-        </label>
-      </td>
-      <td>{{ item.nombreEjemplo }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+  <table>
+    <thead>
+      <tr>
+        <th>TIPO</th>
+        <th>PARÁMETROS</th>
+        <th>EJEMPLO NOMBRE</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>{{ item.tipo }}</td>
+        <td>
+          <div class="checkbox-container">
+            <label *ngFor="let param of item.parametrosDisponibles">
+              <input
+                type="checkbox"
+                [value]="param"
+                [(ngModel)]="item.parametrosSeleccionados[param]"
+                (change)="updateNombreEjemplo(item)"
+              />
+              {{ param }}
+            </label>
+          </div>
+        </td>
+        <td>{{ item.nombreEjemplo }}</td>
+      </tr>
+    </tbody>
+  </table>
 
-<!-- Botón para confirmar cambios -->
-<button (click)="confirmarCambios()" [disabled]="!cambiosRealizados">Guardar Cambios</button>
+  <!-- Botón para confirmar cambios -->
+  <button (click)="confirmarCambios()" [disabled]="!cambiosRealizados">Guardar Cambios</button>
 
-<!-- Mensaje -->
-<div *ngIf="mensaje" class="mensaje">{{ mensaje }}</div>
+  <!-- Mensaje -->
+  <div *ngIf="mensaje" class="mensaje">{{ mensaje }}</div>
+</div>

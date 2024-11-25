@@ -1,49 +1,76 @@
-/* Estilos para la barra de navegación vertical */
+/* Barra de navegación vertical */
 .vertical-nav {
-    width: 100%;
-    background-color: #f4f4f4;
-  }
-  
-  .vertical-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .vertical-nav ul li {
-    display: block;
-  }
-  
-  .vertical-nav ul li a {
-    display: block;
-    padding: 15px;
-    text-decoration: none;
-    color: black;
-    border-bottom: 1px solid #ccc;
-    transition: background-color 0.3s;
-  }
-  
-  .vertical-nav ul li a:hover {
-    background-color: #ddd;
-  }
-  
-  .vertical-nav ul li a.active {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .vertical-nav ul li .logout-button {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    text-align: left;
-    background-color: #dc3545; /* Rojo para indicar la acción de cierre de sesión */
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .vertical-nav ul li .logout-button:hover {
-    background-color: #c82333; /* Color más oscuro al pasar el mouse */
-  }
+  width: 250px; /* Ancho fijo */
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+  background-color: #004c8c; /* Azul oscuro para el fondo */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Separar los elementos verticalmente */
+  padding: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed; /* Fija en la pantalla */
+  top: 0;
+  left: 0;
+}
+
+/* Lista de navegación */
+.vertical-nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Elementos de la lista */
+.vertical-nav ul li {
+  display: block;
+}
+
+/* Enlaces del nav */
+.vertical-nav ul li a {
+  display: block;
+  padding: 15px 20px;
+  text-decoration: none;
+  color: #ffffff; /* Blanco */
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+}
+
+/* Hover sobre enlaces */
+.vertical-nav ul li a:hover {
+  background-color: #006b98; /* Azul intermedio */
+  padding-left: 25px; /* Animación de desplazamiento al pasar el mouse */
+}
+
+/* Enlace activo */
+.vertical-nav ul li a.active {
+  background-color: #008cba; /* Azul más claro */
+  color: #ffffff;
+}
+
+/* Botón de cierre de sesión */
+.vertical-nav ul li .logout-button {
+  display: block;
+  width: 100%;
+  padding: 15px 20px;
+  text-align: left;
+  background-color: #dc3545; /* Rojo para indicar acción crítica */
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+}
+
+/* Hover sobre botón de logout */
+.vertical-nav ul li .logout-button:hover {
+  background-color: #c82333; /* Rojo más oscuro */
+  padding-left: 25px; /* Animación al pasar el mouse */
+}
+
+/* Para ajustar el contenido principal */
+main {
+  margin-left: 250px; /* Ajusta el espacio del contenido para la barra lateral */
+  padding: 20px;
+}

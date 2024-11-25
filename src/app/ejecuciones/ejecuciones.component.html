@@ -3,17 +3,17 @@
 <div class="filtros">
   <div>
     <label for="tipo">Tipo:</label>
-    <select id="tipo" [(ngModel)]="selectedTipo" (ngModelChange)="actualizarTabla()">
+    <select id="tipo" [(ngModel)]="selectedTipo" (ngModelChange)="actualizarFiltros()">
       <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
     </select>
   </div>
   <div>
     <label for="desde">Desde:</label>
-    <input id="desde" type="date" [(ngModel)]="desde" (ngModelChange)="actualizarTabla()">
+    <input id="desde" type="date" [(ngModel)]="desde" (ngModelChange)="actualizarFiltros()">
   </div>
   <div>
     <label for="hasta">Hasta:</label>
-    <input id="hasta" type="date" [(ngModel)]="hasta" (ngModelChange)="actualizarTabla()">
+    <input id="hasta" type="date" [(ngModel)]="hasta" (ngModelChange)="actualizarFiltros()">
   </div>
   <button (click)="limpiarFiltros()">Limpiar Filtros</button>
 </div>
@@ -48,4 +48,5 @@
 <div *ngIf="totalPaginas > 1 && !cargando">
   <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">Anterior</button>
   <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
-  <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">Siguie
+  <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+</div>

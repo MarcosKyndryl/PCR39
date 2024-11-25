@@ -1,20 +1,86 @@
-/* El contenedor utiliza flexbox para organizar la navegación a la izquierda y el contenido a la derecha */
+/* Contenedor principal */
 .container {
+  display: flex; /* Flexbox para organizar barra de navegación y contenido */
+  height: 100vh; /* Altura completa de la pantalla */
+  width: 100%; /* Ancho completo */
+  overflow: hidden; /* Evitar desbordamientos */
+}
+
+/* Barra de navegación */
+nav.vertical-nav {
+  width: 250px; /* Ancho fijo */
+  flex-shrink: 0; /* Asegura que no se reduzca su tamaño */
+  height: 100%; /* Ocupa toda la altura de la pantalla */
+  background-color: #004c8c; /* Azul oscuro */
+  color: white; /* Texto blanco */
   display: flex;
-  height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start; /* Alinea los elementos en la parte superior */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra para separar visualmente */
+  position: relative;
+  z-index: 10;
 }
 
-/* Estilo para el componente de navegación (app-navigation) */
-app-navigation {
-  width: 150px;  /* Ancho fijo para la navegación */
-  background-color: #f4f4f4;  /* Color de fondo */
-  border-right: 1px solid #ccc;  /* Separador entre la navegación y el contenido */
-  padding: 20px;
-  flex-shrink: 0;  /* Evita que la navegación se encoja */
+/* Lista del menú */
+nav.vertical-nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* El contenido se posiciona a la derecha de la barra de navegación */
+/* Elementos del menú */
+nav.vertical-nav li {
+  margin: 0;
+}
+
+/* Enlaces del menú */
+nav.vertical-nav a {
+  display: block;
+  padding: 15px 20px;
+  text-decoration: none; /* Sin subrayado */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+}
+
+/* Hover en enlaces */
+nav.vertical-nav a:hover {
+  background-color: #006b98; /* Azul intermedio */
+  padding-left: 25px; /* Desplazamiento al pasar el mouse */
+}
+
+/* Enlace activo */
+nav.vertical-nav a.active {
+  background-color: #008cba; /* Azul más claro */
+}
+
+/* Botón de cerrar sesión */
+nav.vertical-nav .logout-button {
+  display: block;
+  padding: 15px 20px;
+  text-align: left;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #dc3545; /* Rojo */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+}
+
+/* Hover en botón de cerrar sesión */
+nav.vertical-nav .logout-button:hover {
+  background-color: #c82333; /* Rojo más oscuro */
+  padding-left: 25px; /* Desplazamiento */
+}
+
+/* Contenido principal */
 .content {
-  flex-grow: 1;  /* Ocupa todo el espacio restante */
-  padding: 20px;  /* Espacio interno */
+  flex: 1; /* Toma todo el espacio restante */
+  padding: 20px;
+  overflow-y: auto; /* Permite desplazamiento si el contenido es muy largo */
+  background-color: #f9f9f9; /* Fondo claro */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); /* Sombra interna */
+  margin-left: 250px; /* Deja espacio para la barra de navegación */
 }

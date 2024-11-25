@@ -6,6 +6,7 @@ import { NavigationComponent } from './navigation/navigation.component';  // Imp
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
   standalone: true,
   imports: [NavigationComponent, CommonModule,RouterOutlet]
 })

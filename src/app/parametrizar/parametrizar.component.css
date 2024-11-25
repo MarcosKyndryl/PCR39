@@ -1,101 +1,134 @@
+/* Fuente general para toda la página */
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  color: #333; /* Texto principal */
+  margin: 0;
+  padding: 0;
+  background-color: #f0f8ff; /* Fondo suave celeste */
+}
+
 /* Centrar el título con estilo */
 h1 {
   text-align: center;
   margin-bottom: 20px;
   font-size: 28px;
+  color: #004c8c; /* Azul oscuro para resaltar */
   font-weight: bold;
-  color: #333;
   text-transform: uppercase;
-  border-bottom: 2px solid #4CAF50;
+  border-bottom: 3px solid #008cba; /* Azul intermedio */
   padding-bottom: 10px;
+  letter-spacing: 1px;
 }
 
-/* Estilo de la tabla */
-table {
+/* Contenedor general */
+.container {
   width: 90%;
-  margin: 20px auto;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tabla principal */
+table {
+  width: 100%;
+  margin-top: 20px;
   border-collapse: collapse;
+  background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
 }
 
-/* Estilo para los encabezados */
+/* Encabezados */
 th {
-  background-color: #4CAF50;
+  background-color: #004c8c; /* Azul oscuro */
   color: white;
-  padding: 12px;
-  text-transform: uppercase;
   font-weight: bold;
-  font-size: 14px;
-  text-align: center;
-  position: relative;
-}
-
-/* Estilo para las celdas */
-th, td {
+  text-transform: uppercase;
   padding: 12px;
-  border: 1px solid #ddd;
-  font-size: 14px;
   text-align: center;
+  font-size: 14px;
 }
 
-/* Estilo para las filas alternas */
+/* Estilo para celdas */
+td {
+  padding: 12px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid #d1e7f3; /* Línea divisoria */
+}
+
+/* Filas alternas */
 tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #f0f8ff; /* Celeste claro */
 }
 
 tr:nth-child(odd) {
-  background-color: #ffffff;
+  background-color: #ffffff; /* Blanco */
 }
 
-/* Hover sobre las filas */
+/* Hover sobre filas */
 tr:hover {
-  background-color: #f1f1f1;
+  background-color: #e6f7ff; /* Azul suave */
   transition: background-color 0.3s ease;
 }
 
-/* Estilo para los inputs de checkbox */
-input[type="checkbox"] {
-  margin-right: 8px;
-  accent-color: #4CAF50;
+/* Checkbox en los parámetros */
+td label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #004c8c;
 }
 
-/* Botón para confirmar cambios */
+td input[type="checkbox"] {
+  margin-right: 8px;
+  transform: scale(1.2); /* Hace el checkbox más grande */
+}
+
+/* Botón principal */
 button {
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
   font-size: 16px;
   font-weight: bold;
+  color: white;
+  background-color: #008cba; /* Azul intermedio */
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* Hover en botones */
 button:hover {
-  background-color: #45a049;
-  transform: scale(1.05);
+  background-color: #006b98; /* Azul más oscuro */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* Botón deshabilitado */
 button:disabled {
-  background-color: #ccc;
+  background-color: #cccccc;
+  color: #666666;
   cursor: not-allowed;
-  transform: none;
+  box-shadow: none;
 }
 
-/* Mensaje de confirmación */
+/* Mensaje de confirmación o error */
 .mensaje {
   text-align: center;
-  margin-top: 10px;
-  padding: 10px;
-  font-size: 14px;
+  margin-top: 15px;
+  font-size: 16px;
   font-weight: bold;
-  color: #ffffff;
-  background-color: #4CAF50;
-  border-radius: 5px;
+  color: #004c8c; /* Azul oscuro */
+  padding: 10px;
+  border: 1px solid #008cba;
+  border-radius: 4px;
+  background-color: #e6f7ff; /* Fondo suave */
 }

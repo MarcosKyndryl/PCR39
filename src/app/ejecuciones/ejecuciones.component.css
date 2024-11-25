@@ -1,105 +1,165 @@
+/* Fuente general para toda la página */
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  color: #333; /* Texto principal */
+  margin: 0;
+  padding: 0;
+  background-color: #f0f8ff; /* Fondo suave celeste */
+}
+
 /* Centrar el título con estilo */
 h1 {
   text-align: center;
   margin-bottom: 20px;
   font-size: 28px;
-  color: #333;
+  color: #004c8c; /* Azul oscuro para resaltar */
   font-weight: bold;
   text-transform: uppercase;
-  border-bottom: 2px solid #4CAF50;
+  border-bottom: 3px solid #008cba; /* Azul intermedio */
   padding-bottom: 10px;
+  letter-spacing: 1px;
 }
 
-/* Estilos para la tabla de ejecuciones */
-table {
+/* Contenedor general para centrado */
+.filtros, .tabla {
+  margin: 0 auto;
   width: 90%;
-  margin: 20px auto;
+  max-width: 1200px;
+}
+
+/* Estilos para los filtros */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #e6f7ff; /* Fondo suave celeste */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Etiquetas de los filtros */
+.filtros label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #004c8c;
+}
+
+/* Inputs y select */
+input[type="date"], select {
+  margin: 5px 0;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #d1e7f3; /* Borde celeste suave */
+  border-radius: 4px;
+  width: 220px;
+  background-color: #fff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease;
+}
+
+/* Hover en inputs y select */
+input[type="date"]:hover, select:hover {
+  border-color: #008cba; /* Azul intermedio */
+}
+
+/* Botón */
+button {
+  margin: 10px 0;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #008cba; /* Azul intermedio */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover en botones */
+button:hover {
+  background-color: #006b98; /* Azul más oscuro */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Spinner de carga */
+.spinner p {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #006b98;
+}
+
+/* Estilos para la tabla */
+table {
+  width: 100%;
+  margin-top: 20px;
   border-collapse: collapse;
+  background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   border-radius: 8px;
 }
 
-/* Estilos para las celdas de la tabla */
+/* Encabezados */
+th {
+  background-color: #004c8c; /* Azul oscuro */
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Filas alternas */
+tr:nth-child(even) {
+  background-color: #f0f8ff; /* Celeste claro */
+}
+
+tr:nth-child(odd) {
+  background-color: #ffffff; /* Blanco */
+}
+
+/* Hover sobre filas */
+tr:hover {
+  background-color: #e6f7ff; /* Azul suave */
+  transition: background-color 0.3s ease;
+}
+
+/* Celdas */
 th, td {
   padding: 12px;
   text-align: left;
   font-size: 14px;
+  border-bottom: 1px solid #d1e7f3; /* Línea divisoria */
 }
 
-/* Estilo para los encabezados */
-th {
-  background-color: #4CAF50;
-  color: white;
-  font-weight: bold;
-  position: relative;
-  cursor: pointer;
+/* Sin resultados */
+.sin-resultados p {
   text-align: center;
-  text-transform: uppercase;
-}
-
-/* Agregar iconos a los encabezados */
-th span {
-  margin-left: 5px;
-  font-size: 14px;
-}
-
-/* Estilo para las filas alternas */
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-tr:nth-child(odd) {
-  background-color: #ffffff;
-}
-
-/* Hover sobre las filas */
-tr:hover {
-  background-color: #f1f1f1;
-  transition: background-color 0.3s ease-in-out;
-}
-
-/* Estilo para los botones */
-button {
-  margin: 10px;
-  padding: 8px 12px;
-  font-size: 14px;
-  font-weight: bold;
-  color: white;
-  background-color: #4CAF50;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
-}
-
-/* Hover en los botones */
-button:hover {
-  background-color: #45a049;
-}
-
-/* Estilos para los inputs */
-input[type="date"], input[type="text"], select {
-  margin: 10px;
-  padding: 8px;
-  font-size: 14px;
-  width: 200px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-/* Hover para los inputs */
-input[type="date"]:hover, input[type="text"]:hover, select:hover {
-  border-color: #4CAF50;
-}
-
-/* Estilos de las flechas para ordenar (obsoletoo)*/
-th span {
-  display: inline-block;
-  vertical-align: middle;
-  color: #ffffff;
   font-size: 16px;
   font-weight: bold;
+  color: #006b98; /* Azul intermedio */
+  margin-top: 20px;
+}
+
+/* Paginación */
+.paginacion {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.paginacion button {
+  margin: 0 5px;
+}
+
+.paginacion span {
+  font-size: 14px;
+  font-weight: bold;
+  color: #004c8c; /* Azul oscuro */
 }
