@@ -28,7 +28,8 @@
       <th>Tipo</th>
       <th>Fecha</th>
       <th>Hora</th>
-      <th>Archivo Log</th>
+      <th>Nombre Archivo</th>
+      <th>Estado</th>
     </tr>
   </thead>
   <tbody>
@@ -37,6 +38,9 @@
       <td>{{ ejecucion.fecha }}</td>
       <td>{{ ejecucion.hora }}</td>
       <td>{{ ejecucion.log }}</td>
+      <td>
+        {{ ejecucion.estadoconexion ? 'Subido correctamente' : 'En proceso' }}
+      </td>
     </tr>
   </tbody>
 </table>

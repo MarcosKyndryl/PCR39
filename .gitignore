@@ -6,7 +6,7 @@
 !src/**
 
 # Ignorar la carpeta dist
-dist/
+#dist/
 
 # Ignorar node_modules y otros directorios innecesarios
 node_modules/
