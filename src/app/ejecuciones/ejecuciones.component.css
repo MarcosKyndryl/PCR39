@@ -1,19 +1,22 @@
 /* Fuente general para toda la página */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+
 body {
-  font-family: 'Roboto', Arial, sans-serif;
+  font-family: 'Poppins', Arial, sans-serif;
   color: #333; /* Texto principal */
   margin: 0;
   padding: 0;
   background-color: #f0f8ff; /* Fondo suave celeste */
+  font-size: 14px; /* Tamaño base más pequeño */
 }
 
 /* Centrar el título con estilo */
 h1 {
   text-align: center;
   margin-bottom: 20px;
-  font-size: 28px;
-  color: #004c8c; /* Azul oscuro para resaltar */
-  font-weight: bold;
+  font-size: 24px; /* Fuente más pequeña */
+  color: #004c8c; /* Azul oscuro */
+  font-weight: 500; /* Peso de fuente medio */
   text-transform: uppercase;
   border-bottom: 3px solid #008cba; /* Azul intermedio */
   padding-bottom: 10px;
@@ -25,34 +28,36 @@ h1 {
   margin: 0 auto;
   width: 90%;
   max-width: 1200px;
+  padding: 0 15px;
 }
 
 /* Estilos para los filtros */
 .filtros {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 15px;
   margin-bottom: 20px;
-  padding: 15px;
+  padding: 20px;
   background-color: #e6f7ff; /* Fondo suave celeste */
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Etiquetas de los filtros */
 .filtros label {
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 12px; /* Texto más pequeño */
+  font-weight: 500;
   color: #004c8c;
+  margin-bottom: 5px;
+  display: block;
 }
 
 /* Inputs y select */
-input[type="date"], select {
+input[type="date"], select, input[type="text"] {
   margin: 5px 0;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #d1e7f3; /* Borde celeste suave */
+  padding: 8px;
+  font-size: 12px; /* Tamaño de fuente reducido */
+  border: 1px solid #d1e7f3; /* Borde suave */
   border-radius: 4px;
   width: 220px;
   background-color: #fff;
@@ -61,16 +66,16 @@ input[type="date"], select {
 }
 
 /* Hover en inputs y select */
-input[type="date"]:hover, select:hover {
+input[type="date"]:hover, select:hover, input[type="text"]:hover {
   border-color: #008cba; /* Azul intermedio */
 }
 
-/* Botón */
+/* Estilos de botones */
 button {
   margin: 10px 0;
   padding: 10px 15px;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 12px; /* Texto más pequeño */
+  font-weight: 500; /* Peso de fuente medio */
   color: white;
   background-color: #008cba; /* Azul intermedio */
   border: none;
@@ -89,8 +94,8 @@ button:hover {
 /* Spinner de carga */
 .spinner p {
   text-align: center;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px; /* Texto más pequeño */
+  font-weight: 500;
   color: #006b98;
 }
 
@@ -101,19 +106,20 @@ table {
   border-collapse: collapse;
   background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
   border-radius: 8px;
+  overflow: hidden;
 }
 
 /* Encabezados */
 th {
   background-color: #004c8c; /* Azul oscuro */
   color: white;
-  font-weight: bold;
+  font-weight: 500; /* Peso de fuente medio */
   text-transform: uppercase;
-  padding: 12px;
+  padding: 10px;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px; /* Tamaño de fuente reducido */
+  border-bottom: 1px solid #d1e7f3;
 }
 
 /* Filas alternas */
@@ -133,18 +139,18 @@ tr:hover {
 
 /* Celdas */
 th, td {
-  padding: 12px;
+  padding: 10px;
   text-align: left;
-  font-size: 14px;
-  border-bottom: 1px solid #d1e7f3; /* Línea divisoria */
+  font-size: 12px; /* Tamaño de fuente reducido */
+  border-bottom: 1px solid #d1e7f3;
 }
 
 /* Sin resultados */
 .sin-resultados p {
   text-align: center;
-  font-size: 16px;
-  font-weight: bold;
-  color: #006b98; /* Azul intermedio */
+  font-size: 14px; /* Texto más pequeño */
+  font-weight: 500;
+  color: #006b98;
   margin-top: 20px;
 }
 
@@ -156,10 +162,68 @@ th, td {
 
 .paginacion button {
   margin: 0 5px;
+  padding: 8px 12px;
+  font-size: 12px; /* Tamaño más pequeño */
 }
 
 .paginacion span {
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 12px; /* Tamaño más pequeño */
+  font-weight: 500;
   color: #004c8c; /* Azul oscuro */
+}
+
+/* Estilos responsivos */
+@media (max-width: 1024px) {
+  .filtros {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .filtros label,
+  .filtros input,
+  .filtros select {
+    width: 180px; /* Reducir tamaño de los filtros */
+    margin-bottom: 10px;
+  }
+
+  table {
+    font-size: 12px; /* Ajuste de tamaño de tabla */
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  button {
+    width: auto;
+    font-size: 14px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .filtros {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .filtros label,
+  .filtros input,
+  .filtros select {
+    width: 100%; /* Los filtros ocupan todo el ancho */
+  }
+
+  table {
+    font-size: 12px; /* Ajuste de tabla en pantallas más pequeñas */
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  button {
+    width: 100%; /* Hacer los botones más grandes */
+    font-size: 14px;
+    padding: 12px;
+  }
 }

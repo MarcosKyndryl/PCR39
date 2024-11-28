@@ -11,23 +11,14 @@ import { ReglasService } from '../services/reglas.service'; // Servicio para lla
   imports: [FormsModule, CommonModule], // Agrega FormsModule aquí
 })
 export class ParametrizarComponent implements OnInit {
-  // Definir el mapeo de tipos a parámetros permitidos
-  parametrosPermitidos: Record<string, string[]> = {
-    INF_IMA: ['encuentro', 'peticion', 'garante', 'fechasolicitud'],
-    REC_MED: ['encuentro', 'garante', 'fecharegistro', 'formularioPK'],
-    ORD_LAB: ['encuentro', 'peticion', 'garante', 'fechasolicitud'],
-    ORD_IMA: ['encuentro', 'peticion', 'garante', 'fechasolicitud'],
-    DES_MED: ['encuentro', 'garante', 'fecharegistro', 'formularioPK'],
-  };
-
-  items: any[] = [];
+  items: any[] = [];  // Para almacenar las reglas obtenidas
   mensaje: string = '';
   cambiosRealizados: boolean = false;
 
   constructor(private reglasService: ReglasService) {}
 
   ngOnInit() {
-    this.cargarReglas();
+    this.cargarReglas();  // Cargar las reglas cuando se inicializa el componente
   }
 
   cargarReglas() {
@@ -35,11 +26,13 @@ export class ParametrizarComponent implements OnInit {
       next: (response) => {
         if (response.success) {
           this.items = response.data.map((item: any) => ({
+            id: item.id,  // Incluir el 'id' si lo necesitas
             tipo: item.tipo,
-            parametrosDisponibles: this.parametrosPermitidos[item.tipo] || [],
+            parametrosDisponibles: item.parametros || [],  // Parámetros de la base de datos
             parametrosSeleccionados: this.descomponerParametros(item.regla_nombre),
             nombreEjemplo: item.ejemplo,
             originalParametrosSeleccionados: this.descomponerParametros(item.regla_nombre),
+            estado: item.estado  // Incluir 'estado' en cada ítem
           }));
         }
       },
@@ -50,8 +43,9 @@ export class ParametrizarComponent implements OnInit {
     });
   }
 
+  // Función para descomponer la regla_nombre en parámetros seleccionados
   descomponerParametros(reglaNombre: string): Record<string, boolean> {
-    const seleccionados = reglaNombre.split('_');
+    const seleccionados = reglaNombre.replace('.extension', '').split('_');  // Eliminar ".extension" si está presente
     const parametrosSeleccionados: Record<string, boolean> = {};
     seleccionados.forEach((param) => {
       parametrosSeleccionados[param] = true;
@@ -59,21 +53,41 @@ export class ParametrizarComponent implements OnInit {
     return parametrosSeleccionados;
   }
 
+  // Actualiza el nombre de ejemplo basado en los parámetros seleccionados
   updateNombreEjemplo(item: any) {
     const paramsSeleccionados = item.parametrosDisponibles
       .filter((param: string) => item.parametrosSeleccionados[param])
       .join('_');
-    item.nombreEjemplo = `${item.tipo}_${paramsSeleccionados}.pdf`;
+
+    // Aseguramos que el nombreEjemplo termine con ".extension"
+    item.nombreEjemplo = `${item.tipo}_${paramsSeleccionados}.extension`;
 
     this.verificarCambios();
   }
 
+  // Asegura que el regla_nombre siempre termine con "_extension"
+  actualizarReglaNombre(item: any): string {
+    let reglaNombre = `${item.tipo}_${Object.keys(item.parametrosSeleccionados).join('_')}`;
+
+    // Si el reglaNombre no termina con "_extension", lo agregamos
+    if (!reglaNombre.endsWith('_extension')) {
+      reglaNombre = `${reglaNombre}_extension`;
+    }
+
+    return reglaNombre;
+  }
+
+  // Verifica si se realizaron cambios
   verificarCambios() {
     this.cambiosRealizados = this.items.some((item) => {
-      return JSON.stringify(item.parametrosSeleccionados) !== JSON.stringify(item.originalParametrosSeleccionados);
+      return (
+        JSON.stringify(item.parametrosSeleccionados) !== JSON.stringify(item.originalParametrosSeleccionados) ||
+        item.estado !== item.originalEstado  // Comprobamos también si el estado ha cambiado
+      );
     });
   }
 
+  // Envía los cambios al backend para actualizarlos
   confirmarCambios() {
     if (!this.cambiosRealizados) return;
 
@@ -83,6 +97,8 @@ export class ParametrizarComponent implements OnInit {
         .filter((key) => item.parametrosSeleccionados[key])
         .join('_'),
       nombreEjemplo: item.nombreEjemplo,
+      estado: item.estado,  // Incluir 'estado' al enviar
+      reglaNombre: this.actualizarReglaNombre(item)  // Incluir la regla con _extension
     }));
 
     this.reglasService.actualizarReglas(data).subscribe({
@@ -92,6 +108,7 @@ export class ParametrizarComponent implements OnInit {
           this.cambiosRealizados = false;
           this.items.forEach((item) => {
             item.originalParametrosSeleccionados = { ...item.parametrosSeleccionados };
+            item.originalEstado = item.estado;  // Guardamos el estado original
           });
         }
       },

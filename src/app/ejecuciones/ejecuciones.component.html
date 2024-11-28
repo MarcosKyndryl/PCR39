@@ -3,18 +3,23 @@
 <div class="filtros">
   <div>
     <label for="tipo">Tipo:</label>
-    <select id="tipo" [(ngModel)]="selectedTipo" (ngModelChange)="actualizarFiltros()">
+    <select id="tipo" [(ngModel)]="selectedTipo">
       <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
     </select>
   </div>
   <div>
     <label for="desde">Desde:</label>
-    <input id="desde" type="date" [(ngModel)]="desde" (ngModelChange)="actualizarFiltros()">
+    <input id="desde" type="date" [(ngModel)]="desde">
   </div>
   <div>
     <label for="hasta">Hasta:</label>
-    <input id="hasta" type="date" [(ngModel)]="hasta" (ngModelChange)="actualizarFiltros()">
+    <input id="hasta" type="date" [(ngModel)]="hasta">
   </div>
+  <div>
+    <label for="nombreArchivo">Nombre de Archivo:</label>
+    <input id="nombreArchivo" type="text" [(ngModel)]="nombreArchivo">
+  </div>
+  <button (click)="buscarEjecuciones()">Buscar</button>
   <button (click)="limpiarFiltros()">Limpiar Filtros</button>
 </div>
 

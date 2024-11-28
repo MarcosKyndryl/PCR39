@@ -15,6 +15,7 @@ export class EjecucionesComponent {
   selectedTipo = 'Todos';
   desde: string = '';
   hasta: string = '';
+  nombreArchivo: string = ''; // Nueva variable para el nombre de archivo
 
   ejecuciones: any[] = [];
   paginaActual = 1;
@@ -27,18 +28,27 @@ export class EjecucionesComponent {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.actualizarTabla();
+    // Cargar las ejecuciones con los filtros iniciales cuando la vista se carga
+    this.buscarEjecuciones();
   }
 
-  actualizarTabla() {
+  /**
+   * Realiza la búsqueda al hacer clic en el botón o al cargar la vista
+   */
+  buscarEjecuciones() {
     this.cargando = true;
+
+    // Convierte las fechas 'desde' y 'hasta' al formato adecuado (YYYY-MM-DD)
+    const fechaDesde = this.desde ? new Date(this.desde).toISOString().split('T')[0] : '';
+    const fechaHasta = this.hasta ? new Date(this.hasta).toISOString().split('T')[0] : '';
 
     const filtros = {
       tipo: this.selectedTipo === 'Todos' ? null : this.selectedTipo,
-      desde: this.desde || null,
-      hasta: this.hasta || null,
-      pagina: this.paginaActual,
-      itemsPorPagina: this.itemsPorPagina,
+      desde: fechaDesde || null,
+      hasta: fechaHasta || null,
+      nombreArchivo: this.nombreArchivo || null, // Incluir filtro por nombre de archivo
+      pagina: 1, // Siempre reiniciar a la primera página al presionar buscar
+      itemsPorPagina: this.itemsPorPagina
     };
 
     this.http.post('https://us-central1-ci-xhispdf-dev.cloudfunctions.net/ejecuciones2', filtros).subscribe({
@@ -47,6 +57,11 @@ export class EjecucionesComponent {
           this.ejecuciones = response.data;
           this.totalRegistros = response.total;
           this.totalPaginas = Math.ceil(this.totalRegistros / this.itemsPorPagina);
+
+          // Ajustar la página actual si es mayor que el total de páginas disponibles
+          if (this.paginaActual > this.totalPaginas) {
+            this.paginaActual = this.totalPaginas;
+          }
         } else {
           console.error('Error en la respuesta:', response.message);
         }
@@ -60,18 +75,10 @@ export class EjecucionesComponent {
     });
   }
 
-  /**
-   * Reinicia la tabla cuando cambia un filtro.
-   */
-  actualizarFiltros() {
-    this.paginaActual = 1; // Reinicia a la primera página
-    this.actualizarTabla(); // Recarga los datos
-  }
-
   cambiarPagina(nuevaPagina: number) {
     if (nuevaPagina > 0 && nuevaPagina <= this.totalPaginas) {
       this.paginaActual = nuevaPagina;
-      this.actualizarTabla();
+      this.buscarEjecuciones(); // Cambia a la función de búsqueda
     }
   }
 
@@ -79,7 +86,8 @@ export class EjecucionesComponent {
     this.selectedTipo = 'Todos';
     this.desde = '';
     this.hasta = '';
+    this.nombreArchivo = ''; // Limpiar el filtro de nombre de archivo
     this.paginaActual = 1; // Reinicia a la primera página
-    this.actualizarTabla();
+    this.buscarEjecuciones(); // Realiza la búsqueda con los filtros limpiados
   }
 }

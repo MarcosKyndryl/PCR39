@@ -4,20 +4,19 @@ import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
-})
-export class ReglasService {
-  private apiUrl = 'https://us-central1-ci-xhispdf-dev.cloudfunctions.net/parametrizacion';
 
-  constructor(private http: HttpClient) {}
+  })
+  export class ReglasService {
+    private apiUrl = 'https://us-central1-ci-xhispdf-dev.cloudfunctions.net/parametrizacion'; // Asegúrate de reemplazar con la URL real de tu API
 
-  // Método para obtener las reglas
-  obtenerReglas(): Observable<any> {
-    return this.http.get(this.apiUrl);
+    constructor(private http: HttpClient) {}
+
+    obtenerReglas(): Observable<any> {
+      return this.http.get<any>(`${this.apiUrl}/obtener`);  // Endpoint para obtener las reglas
+    }
+
+    actualizarReglas(data: any[]): Observable<any> {
+      return this.http.post<any>(`${this.apiUrl}/actualizar`, data);  // Endpoint para actualizar las reglas
+    }
   }
 
-  // Método para actualizar las reglas
-  actualizarReglas(data: any[]): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(this.apiUrl, data, { headers });
-  }
-}

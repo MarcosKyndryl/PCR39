@@ -6,6 +6,7 @@
         <th>TIPO</th>
         <th>PARÁMETROS</th>
         <th>EJEMPLO NOMBRE</th>
+        <th>ESTADO</th> <!-- Nueva columna para mostrar y cambiar el estado -->
       </tr>
     </thead>
     <tbody>
@@ -25,6 +26,16 @@
           </div>
         </td>
         <td>{{ item.nombreEjemplo }}</td>
+
+        <!-- Columna Estado con un checkbox para habilitar/deshabilitar -->
+        <td>
+          <input
+            type="checkbox"
+            [(ngModel)]="item.estado"
+            (change)="verificarCambios()"
+            [checked]="item.estado === true"
+          />
+        </td>
       </tr>
     </tbody>
   </table>
