@@ -26,13 +26,14 @@ export class ParametrizarComponent implements OnInit {
       next: (response) => {
         if (response.success) {
           this.items = response.data.map((item: any) => ({
-            id: item.id,  // Incluir el 'id' si lo necesitas
+            id: item.id, // Usamos el ID como referencia
             tipo: item.tipo,
             parametrosDisponibles: item.parametros || [],  // Parámetros de la base de datos
             parametrosSeleccionados: this.descomponerParametros(item.regla_nombre),
             nombreEjemplo: item.ejemplo,
             originalParametrosSeleccionados: this.descomponerParametros(item.regla_nombre),
-            estado: item.estado  // Incluir 'estado' en cada ítem
+            estado: item.estado, // Incluimos el estado
+            originalEstado: item.estado // Guardamos el estado original
           }));
         }
       },
@@ -45,7 +46,7 @@ export class ParametrizarComponent implements OnInit {
 
   // Función para descomponer la regla_nombre en parámetros seleccionados
   descomponerParametros(reglaNombre: string): Record<string, boolean> {
-    const seleccionados = reglaNombre.replace('.extension', '').split('_');  // Eliminar ".extension" si está presente
+    const seleccionados = reglaNombre.replace('.extension', '').split('_'); // Eliminar ".extension" si está presente
     const parametrosSeleccionados: Record<string, boolean> = {};
     seleccionados.forEach((param) => {
       parametrosSeleccionados[param] = true;
@@ -65,12 +66,12 @@ export class ParametrizarComponent implements OnInit {
     this.verificarCambios();
   }
 
-  // Asegura que el regla_nombre siempre termine con "_extension"
+  // Asegura que el regla_nombre siempre termine con "_extension" solo si el ID es 1
   actualizarReglaNombre(item: any): string {
     let reglaNombre = `${item.tipo}_${Object.keys(item.parametrosSeleccionados).join('_')}`;
 
-    // Si el reglaNombre no termina con "_extension", lo agregamos
-    if (!reglaNombre.endsWith('_extension')) {
+    // Aplicamos el sufijo "_extension" únicamente si el ID es 1
+    if (item.id === 1 && !reglaNombre.endsWith('_extension')) {
       reglaNombre = `${reglaNombre}_extension`;
     }
 
@@ -82,7 +83,7 @@ export class ParametrizarComponent implements OnInit {
     this.cambiosRealizados = this.items.some((item) => {
       return (
         JSON.stringify(item.parametrosSeleccionados) !== JSON.stringify(item.originalParametrosSeleccionados) ||
-        item.estado !== item.originalEstado  // Comprobamos también si el estado ha cambiado
+        item.estado !== item.originalEstado // Verificamos si el estado ha cambiado
       );
     });
   }
@@ -92,13 +93,14 @@ export class ParametrizarComponent implements OnInit {
     if (!this.cambiosRealizados) return;
 
     const data = this.items.map((item) => ({
+      id: item.id, // Enviamos el ID al backend
       tipo: item.tipo,
       parametrosSeleccionados: Object.keys(item.parametrosSeleccionados)
         .filter((key) => item.parametrosSeleccionados[key])
         .join('_'),
       nombreEjemplo: item.nombreEjemplo,
-      estado: item.estado,  // Incluir 'estado' al enviar
-      reglaNombre: this.actualizarReglaNombre(item)  // Incluir la regla con _extension
+      estado: item.estado, // Incluimos el estado
+      reglaNombre: this.actualizarReglaNombre(item) // Generamos la regla con "_extension" solo para ID=1
     }));
 
     this.reglasService.actualizarReglas(data).subscribe({
@@ -108,7 +110,7 @@ export class ParametrizarComponent implements OnInit {
           this.cambiosRealizados = false;
           this.items.forEach((item) => {
             item.originalParametrosSeleccionados = { ...item.parametrosSeleccionados };
-            item.originalEstado = item.estado;  // Guardamos el estado original
+            item.originalEstado = item.estado; // Guardamos el estado original
           });
         }
       },

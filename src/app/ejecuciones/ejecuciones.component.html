@@ -1,61 +1,89 @@
-<h1>Ejecuciones</h1>
+<div class="container">
+  <!-- Filtros -->
+  <div class="filtros">
+    <div>
+      <label for="tipo">Tipo:</label>
+      <select id="tipo" [(ngModel)]="selectedTipo">
+        <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+      </select>
+    </div>
 
-<div class="filtros">
-  <div>
-    <label for="tipo">Tipo:</label>
-    <select id="tipo" [(ngModel)]="selectedTipo">
-      <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
-    </select>
+    <div>
+      <label for="desde">Desde:</label>
+      <input id="desde" type="date" [(ngModel)]="desde" />
+    </div>
+
+    <div>
+      <label for="hasta">Hasta:</label>
+      <input id="hasta" type="date" [(ngModel)]="hasta" />
+    </div>
+
+    <div>
+      <label for="estado">Estado:</label>
+      <select id="estado" [(ngModel)]="selectedEstado">
+        <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="nombreArchivo">Nombre de Archivo:</label>
+      <input id="nombreArchivo" type="text" [(ngModel)]="nombreArchivo" />
+    </div>
+
+    <div class="botones">
+      <button (click)="aplicarFiltros()">Aplicar Filtros</button>
+      <button (click)="limpiarFiltros()">Limpiar Filtros</button>
+    </div>
   </div>
-  <div>
-    <label for="desde">Desde:</label>
-    <input id="desde" type="date" [(ngModel)]="desde">
+
+  <!-- Mensaje de carga -->
+  <div *ngIf="cargando" class="spinner">
+    <p>Cargando...</p>
   </div>
-  <div>
-    <label for="hasta">Hasta:</label>
-    <input id="hasta" type="date" [(ngModel)]="hasta">
+
+  <!-- Mensaje de error -->
+  <div *ngIf="error" class="error-message">
+    <p>{{ errorMessage }}</p>
   </div>
-  <div>
-    <label for="nombreArchivo">Nombre de Archivo:</label>
-    <input id="nombreArchivo" type="text" [(ngModel)]="nombreArchivo">
+
+  <!-- Tabla de resultados -->
+  <table *ngIf="!cargando && ejecuciones.length > 0" class="resultados">
+    <thead>
+      <tr>
+        <th>Tipo</th>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Nombre Archivo</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ejecucion of ejecuciones">
+        <td>{{ ejecucion.tipo }}</td>
+        <td>{{ ejecucion.fecha }}</td>
+        <td>{{ ejecucion.hora }}</td>
+        <td>{{ ejecucion.log }}</td>
+        <td
+          [ngClass]="{
+            'estado-en-proceso': !ejecucion.estadoconexion || ejecucion.estadoconexion === null,
+            'estado-correcto': ejecucion.estadoconexion
+          }"
+        >
+          {{ ejecucion.estadoconexion ? 'Subido correctamente' : 'En proceso' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Mensaje de "sin resultados" -->
+  <div *ngIf="!cargando && ejecuciones.length === 0" class="no-resultados">
+    <p>No se encontraron resultados.</p>
   </div>
-  <button (click)="buscarEjecuciones()">Buscar</button>
-  <button (click)="limpiarFiltros()">Limpiar Filtros</button>
-</div>
 
-<div *ngIf="cargando" class="spinner">
-  <p>Cargando...</p>
-</div>
-
-<table *ngIf="ejecuciones.length > 0 && !cargando">
-  <thead>
-    <tr>
-      <th>Tipo</th>
-      <th>Fecha</th>
-      <th>Hora</th>
-      <th>Nombre Archivo</th>
-      <th>Estado</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let ejecucion of ejecuciones">
-      <td>{{ ejecucion.tipo }}</td>
-      <td>{{ ejecucion.fecha }}</td>
-      <td>{{ ejecucion.hora }}</td>
-      <td>{{ ejecucion.log }}</td>
-      <td>
-        {{ ejecucion.estadoconexion ? 'Subido correctamente' : 'En proceso' }}
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<div *ngIf="ejecuciones.length === 0 && !cargando">
-  <p>No se encontraron resultados.</p>
-</div>
-
-<div *ngIf="totalPaginas > 1 && !cargando">
-  <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">Anterior</button>
-  <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
-  <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+  <!-- Paginación -->
+  <div *ngIf="totalPaginas > 1" class="paginacion">
+    <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">Anterior</button>
+    <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
+    <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+  </div>
 </div>
